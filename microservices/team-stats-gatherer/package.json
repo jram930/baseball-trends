@@ -1,0 +1,26 @@
+{
+  "name": "team-stats-gatherer",
+  "version": "1.0.0",
+  "description": "\"\"\u001b[DGathers statistics from the web for a particular baseball team\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Jared Ramsey",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "curl": "^0.1.4",
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "jquery": "^3.3.1",
+    "jsdom": "^11.11.0",
+    "mongoose": "^5.2.1",
+    "request": "^2.87.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
