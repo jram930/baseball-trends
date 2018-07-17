@@ -2,14 +2,16 @@
 
 
 const cheerio = require('cheerio');
+const TeamStats = require('./team-stats.js');
 
 class DataCleaner {
   constructor(teamName) {
     this.teamName = teamName;
     this.$ = null;
-    this.stats = {
-      team: teamName
-    };
+    this.teamStats = TeamStats({
+      teamName: this.teamName,
+      players: []
+    });
   }
 
   extractStatsFromDom(html) {
@@ -17,10 +19,25 @@ class DataCleaner {
 
     this.extractPlayerStats();
 
-    return this.stats;
+    return this.teamStats;
   }
 
   extractPlayerStats() {
+    const $ = this.$;
+    var rows = $($('table')[0]).find('tr');
+    console.log('\n\n********************************************************************************');
+    for(var i=2; i<rows.length-2; i++) {
+      var playerName = $($(rows[i]).find('td')[0]).find('a')[0].children[0].data;
+      if(playerName != undefined) {
+        console.log(playerName);
+        this.teamStats.players.push({
+          playerName: playerName
+        })
+      }
+    }
+  }
+
+  extractPlayerStatsOld() {
     const $ = this.$;
     this.stats.players = {};
     var rows = $($('table')[0]).find('tr');
