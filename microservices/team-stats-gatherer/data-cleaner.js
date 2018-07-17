@@ -13,7 +13,6 @@ class DataCleaner {
   }
 
   extractStatsFromDom(html) {
-    console.log('extracting');
     this.$ = cheerio.load(html);
 
     this.extractPlayerStats();
@@ -25,9 +24,11 @@ class DataCleaner {
     const $ = this.$;
     this.stats.players = {};
     var rows = $($('table')[0]).find('tr');
+    console.log('\n\n********************************************************************************');
     for(var i=2; i<rows.length-2; i++) {
       var playerName = $($(rows[i]).find('td')[0]).find('a')[0].children[0].data;
       if(playerName != undefined) {
+        console.log(playerName)
         var cells = $(rows[i]).find('td');
         this.stats.players[playerName] = {
           gamesPlayed: cells[1].children[0].data,
