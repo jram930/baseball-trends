@@ -30,24 +30,9 @@ class DataCleaner {
       var playerName = $($(rows[i]).find('td')[0]).find('a')[0].children[0].data;
       if(playerName != undefined) {
         console.log(playerName);
-        this.teamStats.players.push({
-          playerName: playerName
-        })
-      }
-    }
-  }
-
-  extractPlayerStatsOld() {
-    const $ = this.$;
-    this.stats.players = {};
-    var rows = $($('table')[0]).find('tr');
-    console.log('\n\n********************************************************************************');
-    for(var i=2; i<rows.length-2; i++) {
-      var playerName = $($(rows[i]).find('td')[0]).find('a')[0].children[0].data;
-      if(playerName != undefined) {
-        console.log(playerName)
         var cells = $(rows[i]).find('td');
-        this.stats.players[playerName] = {
+        this.teamStats.players.push({
+          playerName: playerName,
           gamesPlayed: cells[1].children[0].data,
           atBats: cells[2].children[0].data,
           runs: cells[3].children[0].data,
@@ -65,7 +50,7 @@ class DataCleaner {
           slugging: cells[15].children[0].data,
           onBasePlusSlugging: cells[16].children[0].data,
           owar: cells[17].children[0].data
-        };
+        })
       }
     }
   }

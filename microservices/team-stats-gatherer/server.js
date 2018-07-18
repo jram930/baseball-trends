@@ -25,4 +25,4 @@ setInterval(() => {
     //   console.log(stats.length);
     // });
   });
-}, 60000);
+}, 10000);
