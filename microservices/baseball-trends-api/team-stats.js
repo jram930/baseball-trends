@@ -3,6 +3,10 @@ var Schema = mongoose.Schema;
 
 var teamStatsSchema = new Schema({
     teamName: String,
+    wins: Number,
+    losses: Number,
+    divisionRank: Number,
+    division: String,
     players: [{
         playerName: String,
         gamesPlayed: Number,

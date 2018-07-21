@@ -14,6 +14,8 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
     console.log('Received call!');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
@@ -27,7 +29,12 @@ router.get('/latest/teams', function(req, res) {
 
 router.get('/latest/teams/:teamName', function(req, res) {
     let teamName = req.params.teamName;
-    res.json({ message: 'Getting latest stats for ' + teamName});
+    TeamStats.find({teamName: teamName}).exec((err, stats) => {
+        if(err) {
+            console.log(err);
+        }
+        res.json({ teamStats: stats[stats.length-1] });
+    });
 });
 
 router.get('/teams/:teamName/count', function(req, res) {

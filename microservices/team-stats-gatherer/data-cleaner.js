@@ -10,6 +10,10 @@ class DataCleaner {
     this.$ = null;
     this.teamStats = TeamStats({
       teamName: this.teamName,
+      wins: -1,
+      losses: -1,
+      divisionRank: -1,
+      division: 'NotSet',
       players: []
     });
   }
@@ -17,9 +21,24 @@ class DataCleaner {
   extractStatsFromDom(html) {
     this.$ = cheerio.load(html);
 
+    this.extractTeamStats();
     this.extractPlayerStats();
 
+    console.log(this.teamStats);
+
     return this.teamStats;
+  }
+
+  extractTeamStats() {
+    const $ = this.$;
+    var subTitle = $('#sub-branding .sub-title')[0].children[0].data;
+    var firstDash = subTitle.indexOf('-');
+    var comma = subTitle.indexOf(',');
+    var _in_ = subTitle.indexOf(' in ');
+    this.teamStats.wins = subTitle.slice(0, firstDash);
+    this.teamStats.losses = subTitle.slice(firstDash+1, comma);
+    this.teamStats.divisionRank = subTitle.slice(comma+2, comma+3);
+    this.teamStats.division = subTitle.slice(_in_ + 4);
   }
 
   extractPlayerStats() {
@@ -29,7 +48,6 @@ class DataCleaner {
     for(var i=2; i<rows.length-2; i++) {
       var playerName = $($(rows[i]).find('td')[0]).find('a')[0].children[0].data;
       if(playerName != undefined) {
-        console.log(playerName);
         var cells = $(rows[i]).find('td');
         this.teamStats.players.push({
           playerName: playerName,
