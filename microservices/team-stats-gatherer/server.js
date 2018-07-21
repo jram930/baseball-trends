@@ -3,12 +3,12 @@ const DataCleaner = require('./data-cleaner.js');
 const DataStorer = require('./data-storer.js');
 
 
-const TEAM_NAME = 'nationals';
+const TEAM_NAME = process.env.TEAM_NAME;
 const MONGO_URL = 'mongodb://172.18.0.2:27017/team-stats';
 
 var dataGatherer = new DataGatherer(TEAM_NAME);
 
-console.log('Starting baseball trends application...');
+console.log('Starting team stats gatherer for ' + TEAM_NAME + '...');
 
 function run() {
   dataGatherer.gather().then((html) => {

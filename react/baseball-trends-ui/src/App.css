@@ -33,6 +33,7 @@ p {
   width: 300px;
   height: 100px;
   margin: 10px;
+  background: deeppink;
 }
 
 .team-box.dodgers {

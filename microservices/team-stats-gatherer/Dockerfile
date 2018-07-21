@@ -8,4 +8,6 @@ RUN npm install
 
 COPY . .
 
+ENV TEAM_NAME NotSet
+
 CMD ["npm", "start"]

@@ -33,13 +33,17 @@ router.get('/latest/teams/:teamName', function(req, res) {
         if(err) {
             console.log(err);
         }
+        if(teamName == 'braves') {
+            console.log('c');
+            console.log(stats[stats.length-1]);
+        }
         res.json({ teamStats: stats[stats.length-1] });
     });
 });
 
 router.get('/teams/:teamName/count', function(req, res) {
     let teamName = req.params.teamName;
-    TeamStats.find({teamName: 'nationals'}).exec((err, stats) => {
+    TeamStats.find({teamName: teamName}).exec((err, stats) => {
         if(err) {
             console.log(err);
         }
